@@ -12,7 +12,11 @@ exports.copy = ({ state, source, destination }) => state
         .Δ(instructions =>
             [...instructions, `COPY ${source} ${destination}`]));
 
-exports.image = ({ state, children }) => reduce(state, children);
+exports.image = ({ state, from: mFrom, workspace: mWorkspace, children }) => reduce(state
+    .Δ(workspace => mWorkspace)
+    .Δ(dockerfile => dockerfile
+        .Δ(from => mFrom || "scratch")),
+    children);
 
 global.copy = exports.copy;
 global.image = exports.image;

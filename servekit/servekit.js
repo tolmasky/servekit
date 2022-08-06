@@ -20,6 +20,7 @@ const DockerfileState = type `DockerfileState`
 
 const Dockerfile = type `Dockerfile`
 ({
+    from            :of =>  type.string `=` ("scratch"),
     instructions    :of =>  array `=` ([])
 });
 
