@@ -2,11 +2,19 @@
   "name": "servekit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "servekit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Francisco Ryan Tolmasky I <tolmasky@gmail.com> (https://tolmasky.com/)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@algebraic/dense-int-set": "^1.0.0-alpha.21",
+    "@algebraic/type": "^1.0.0-alpha.21",
+    "@babel/register": "^7.18.9",
+    "@climb/until": "^1.0.0-alpha.8",
+    "@generic-jsx/babel-plugin": "^23.0.0",
+    "generic-jsx": "^20.0.0"
+  }
 }
