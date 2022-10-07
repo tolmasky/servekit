@@ -1,0 +1,14 @@
+{
+  "name": "@servekit/local-ssl",
+  "version": "1.0.0-alpha.1",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Francisco Ryan Tolmasky I <tolmasky@gmail.com> (https://tolmasky.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "@await/spawn": "9.0.0"
+  }
+}
