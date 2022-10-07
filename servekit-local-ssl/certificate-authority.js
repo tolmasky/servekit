@@ -1,4 +1,4 @@
-const request = require("./ssl-request");
+const request = require("./openssl-request");
 const toImmutableDestination = require("./to-immutable-destination");
 
 

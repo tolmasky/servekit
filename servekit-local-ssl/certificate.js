@@ -5,7 +5,7 @@ const write =
     (require("fs").writeFileSync)
 
 const openssl = require("./openssl");
-const request = require("./request");
+const request = require("./openssl-request");
 
 const toImmutableDestination = require("./to-immutable-destination");
 
