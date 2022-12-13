@@ -1,11 +1,12 @@
 #!/usr/bin/env -S clf
 
+const given = f => f();
+
 const { join, resolve } = require("path");
-const { base, curry, getArguments } = require("generic-jsx");
+const { getBindingOf, bind } = require("generic-jsx");
 const spawn = require("@await/spawn");
 //const HOME = require("home");
 //const toMatcher = require("nanomatch").matcher;
-
 const array = require("./array");
 const type = require("@algebraic/type");
 
@@ -24,6 +25,12 @@ const Dockerfile = type `Dockerfile`
     instructions    :of =>  array `=` ([])
 });
 
+const c = type `curried<copy>`
+({
+    source      :of => type.string,
+    destination :of => type.string
+});
+
 module.exports = async function (entrypoint)
 {
     require("@babel/register")
@@ -33,15 +40,25 @@ module.exports = async function (entrypoint)
         [[
             require("@generic-jsx/babel-plugin"),
             { importSource: require.resolve("generic-jsx") }
-        ]]
+        ]],
+        cache: false,
     });
-
+console.log(require("@generic-jsx/babel-plugin")+"");
     const start = DockerfileState({ workspace: process.cwd() });
 
     const fImage = require(resolve(process.cwd(), entrypoint));
-    const Dockerfile = reduce(start, curry(fImage, { hash: "dev" }));
+    console.log(fImage+"");
+    const Dockerfile_ = reduce(start, bind(fImage, { hash: "dev" }, []));
 
-    console.log(Dockerfile);
+    const f = (a,b)=>a+b;
+    f.source = "hi";
+    f.destination = "bye";
+    Object.setPrototypeOf(f, c.prototype);
+
+    console.log(f);
+
+    console.log(Dockerfile_);
+    console.log(Dockerfile_.dockerfile.instructions);
 /*
     console.log(image);
     const start = Date.now();
@@ -73,5 +90,7 @@ global.reduce = function reduce(state, element)
 
 //    return [uState, chained] = reduce(state, element({ state }));
 
-    return reduce(state, element({ state }));
+    const reducer = getBindingOf(element).reduce || element;
+console.log(reducer, state);
+    return reduce(state, reducer === element ? reducer(state) : reducer(state, element));
 }
